@@ -6,7 +6,7 @@ cc = c++
 
 cflags = -Wall -Wextra -Werror -std=c++98
 
-NAME = template
+NAME = iter
 
 $(NAME): $(objects)
 	$(cc) $(cflags) -o $(NAME) $(objects)
