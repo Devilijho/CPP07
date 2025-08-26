@@ -28,5 +28,12 @@ int main()
 		std::cout << std::endl;
 		for (int i = 0; i < 5; i++)
 			std::cout << n[i];
+		std::cout << std::endl;
+	}
+	{
+		std::string str = "gnk@";
+		std::cout << str << std::endl;
+		::iter(const_cast<char *>(str.c_str()), strlen(str.c_str()), &fun);
+		std::cout << str << std::endl;
 	}
 }
