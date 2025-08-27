@@ -11,6 +11,7 @@ void fun(char &c)
 	(c)++;
 }
 
+
 int main()
 {
 	{
@@ -32,8 +33,9 @@ int main()
 	}
 	{
 		std::string str = "gnk@";
-		std::cout << str << std::endl;
-		::iter(const_cast<char *>(str.c_str()), strlen(str.c_str()), &fun);
-		std::cout << str << std::endl;
+		char *ptr = &str[0];
+		std::cout << ptr << std::endl;
+		::iter(ptr, strlen(ptr), &fun);
+		std::cout << ptr << std::endl;
 	}
 }
