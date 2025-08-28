@@ -1,7 +1,5 @@
 #include "Array.hpp"
 
-
-#define MAX_VAL 750
 int main(int, char**)
 {
 	Array<int> numbers(MAX_VAL);
@@ -10,45 +8,44 @@ int main(int, char**)
 	for (int i = 0; i < MAX_VAL; i++)
 	{
 		const int value = rand();
-		numbers[i] = value;
-		mirror[i] = value;
+		(void)value;
+		mirror[i] = i;
+		numbers[i] = i;
 	}
-	// //SCOPE
-	// {
-	// 	Array<int> tmp = numbers;
-	// 	Array<int> test(tmp);
-	// }
+	{
+		Array<int> tmp = numbers;
+		Array<int> test(tmp);
+	}
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		if (mirror[i] != numbers[i])
+		{
+			std::cerr << "didn't save the same value!!" << std::endl;
+			return 1;
+		}
+	}
+	try
+	{
+		numbers[-2] = 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		numbers[MAX_VAL] = 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 
-	// for (int i = 0; i < MAX_VAL; i++)
-	// {
-	// 	if (mirror[i] != numbers[i])
-	// 	{
-	// 		std::cerr << "didn't save the same value!!" << std::endl;
-	// 		return 1;
-	// 	}
-	// }
-	// try
-	// {
-	// 	numbers[-2] = 0;
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	std::cerr << e.what() << '\n';
-	// }
-	// try
-	// {
-	// 	numbers[MAX_VAL] = 0;
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	std::cerr << e.what() << '\n';
-	// }
-
-	// for (int i = 0; i < MAX_VAL; i++)
-	// {
-	// 	numbers[i] = rand();
-	// }
-	// delete[] numbers;
-	delete [] mirror;//
-	// return 0;
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		numbers[i] = rand();
+	}
+	delete [] mirror;
+	std::cout << "SUCCESS" << std::endl;
+ 	return 0;
 }

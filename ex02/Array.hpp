@@ -6,34 +6,62 @@
 #include <iostream>
 #include <cstdlib>
 
-template <typename TypeArray> class Array
+#define MAX_VAL 750
+
+template <typename Type> class Array
 {
 	public:
-		TypeArray *array;
+		Type *array;
 		Array()
 		{
 			array = NULL;
+			array_size = 0;
 		}
 		Array(size_t n)
 		{
-			TypeArray new_array[n];
-			array = new_array;
+			array = new Type[n];
+			array_size = n;
+			for (size_t pos = 0; pos < n; pos++)
+				array[pos] = Type();
 		}
 		Array(const Array &other)
 		{
-			(void)other;
+			array = new Type[other.array_size];
+			array_size = other.array_size;
+			for (size_t pos = 0; pos < array_size; pos++)
+				array[pos] = other[pos];
 		}
-		Array *operator=(const Array &other)
+		Array &operator=(const Array &other)
 		{
-			if (this != other)
+			if (this != &other)
 			{
-				this = other;
+				if (this->array != NULL)
+					delete[] this->array;
+				this->array = new Type[other.array_size];
+				this->array_size = other.array_size;
+				for (size_t pos = 0; pos < other.array_size; pos++)
+					array[pos] = other[pos];
 			}
-			return (this);
+			return (*this);
 		}
-		TypeArray	*operator[](size_t pos)
+		~Array()
 		{
-			if (pos >= size())
+			if (this->array != NULL)
+			{
+				delete[] this->array;
+			}
+		}
+		Type	&operator[](size_t pos)
+		{
+			if (pos >= array_size)
+			{
+				throw std::exception();
+			}
+			return array[pos];
+		}
+		Type	&operator[](size_t pos) const
+		{
+			if (pos >= array_size)
 			{
 				throw std::exception();
 			}
@@ -41,13 +69,8 @@ template <typename TypeArray> class Array
 		}
 		size_t size()
 		{
-			TypeArray *ptr = array;
-			size_t size = 0;
-			while (ptr != NULL)
-			{
-				ptr++;
-				size++;
-			}
-			return (size);
+			return (array_size);
 		}
+		private:
+			size_t	array_size;
 };
