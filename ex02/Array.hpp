@@ -12,12 +12,13 @@ template <typename Type> class Array
 {
 	public:
 		Type *array;
+
 		Array()
 		{
 			array = NULL;
 			array_size = 0;
 		}
-		Array(size_t n)
+		Array(unsigned int n)
 		{
 			array = new Type[n];
 			array_size = n;
@@ -29,7 +30,7 @@ template <typename Type> class Array
 			array = new Type[other.array_size];
 			array_size = other.array_size;
 			for (size_t pos = 0; pos < array_size; pos++)
-				array[pos] = other[pos];
+				this->array[pos] = other.array[pos];
 		}
 		Array &operator=(const Array &other)
 		{
@@ -40,7 +41,7 @@ template <typename Type> class Array
 				this->array = new Type[other.array_size];
 				this->array_size = other.array_size;
 				for (size_t pos = 0; pos < other.array_size; pos++)
-					array[pos] = other[pos];
+					this->array[pos] = other.array[pos];
 			}
 			return (*this);
 		}
@@ -53,7 +54,7 @@ template <typename Type> class Array
 		}
 		Type	&operator[](size_t pos)
 		{
-			if (pos >= array_size)
+			if (pos >= array_size || pos < 0)
 			{
 				throw std::exception();
 			}
@@ -61,7 +62,7 @@ template <typename Type> class Array
 		}
 		Type	&operator[](size_t pos) const
 		{
-			if (pos >= array_size)
+			if (pos >= array_size || pos < 0)
 			{
 				throw std::exception();
 			}
